@@ -23,7 +23,7 @@ class User(UserBase, table=True):
 	password: str
 
 
-class UserCreate(UserBase): # fastapi dev PersonalNews/main.py
+class UserCreate(UserBase):
 	password: str 
 
 
