@@ -1,0 +1,13 @@
+[
+  "test_auth.py::test_client_login",
+  "test_auth.py::test_client_register",
+  "test_auth.py::test_fetch_article",
+  "test_auth.py::test_fetching_articles",
+  "test_auth.py::test_jwt_token",
+  "test_auth.py::test_redis_cache",
+  "test_auth.py::test_refister_user",
+  "test_auth.py::test_register_and_login_user",
+  "test_auth.py::test_register_user",
+  "test_auth.py::test_subscription",
+  "test_redis.py::test_process_payment_with_side_effect"
+]
