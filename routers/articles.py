@@ -42,7 +42,6 @@ async def get_articles(current_user: Annotated[User, Depends(get_current_user)],
 	api_tasks = []
 	topics_to_fetch = []
 
-	# 1. Сначала проверяем кэш для всех тем
 	for topic, cached_data in zip(topics, cached_results):
 		if cached_data and not isinstance(cached_data, BaseException):
 			final_articles.extend(cached_data)
@@ -50,7 +49,6 @@ async def get_articles(current_user: Annotated[User, Depends(get_current_user)],
 			topics_to_fetch.append(topic)
 			api_tasks.append(fetch_singe_topic(topic))
 
-	# 2. ВЫНЕСЕНО ИЗ ЦИКЛА: Делаем запросы к API только после проверки всего кэша
 	if api_tasks:
 		api_result = await asyncio.gather(*api_tasks, return_exceptions=True)
 
@@ -63,7 +61,6 @@ async def get_articles(current_user: Annotated[User, Depends(get_current_user)],
 		if save_tasks:
 			await asyncio.gather(*save_tasks, return_exceptions=True)
 
-	# 3. ДОБАВЛЕНО: Возвращаем собранные статьи
 	return {"articles": final_articles}
 
 		

@@ -7,11 +7,13 @@ from PersonalNews.routers.articles import articles_router
 import time 
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
+import os 
 @asynccontextmanager
 async def lifespan(app:FastAPI):
 	async with create_db() as db:
 		yield db 
 
+LOG_FILE = os.getenv("LOG_FILE", "message_log.txt")
 app = FastAPI(lifespan=lifespan)
 
 @app.middleware("http")
@@ -20,7 +22,7 @@ async def add_process_time(request: Request, call_next):
 	print(client_version)
 	start_time = time.perf_counter()
 	response = await call_next(request)
-	process_time = time.perf_counter() - start_time
+	process_time = time.perf_counter() - start_time # some new comments
 	response.headers["X-Process-Time"] = str(process_time)
 	print(f"{request.method}, {request.url.path} -> {response.status_code} {process_time}, {request.client}")
 	return response

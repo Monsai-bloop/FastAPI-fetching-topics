@@ -4,8 +4,9 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from contextlib import asynccontextmanager
 from typing import Annotated
 from fastapi import Depends, BackgroundTasks
+import os 
 
-sqlite_url = "sqlite+aiosqlite:///PersonalNews.db"
+sqlite_url = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///PersonalNews.db")
 connection_args = {"check_same_thread": False}
 engine = create_async_engine(sqlite_url, echo=True, future=True, connect_args=connection_args)
 

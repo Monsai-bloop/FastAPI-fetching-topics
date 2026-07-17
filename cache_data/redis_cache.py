@@ -4,6 +4,8 @@ from redis.typing import EncodableT, FieldT
 from typing import Mapping
 import json
 import sys 
+import os 
+
 class CacheData():
 	def __init__(self, host=None, port=None, db=None):
 		self.redis = aiosync.Redis(
